@@ -1,0 +1,5 @@
+*.~*
+Debug/
+*.dll
+*.vcxproj
+*.vcxproj.filters
