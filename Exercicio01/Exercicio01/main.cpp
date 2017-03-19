@@ -91,42 +91,33 @@ void handleSpecialKeys(int key, int x, int y) {
 	if (key == GLUT_KEY_LEFT) {
 		translacaoX -= 0.01;
 		glutPostRedisplay();
-	}
-	else if (key == GLUT_KEY_RIGHT) {
+	} else if (key == GLUT_KEY_RIGHT) {
 		translacaoX += 0.01;
 		glutPostRedisplay();
-	}
-	else if (key == GLUT_KEY_UP) {
+	} else if (key == GLUT_KEY_UP) {
 		translacaoY += 0.01;
 		glutPostRedisplay();
-	}
-	else if (key == GLUT_KEY_DOWN) {
+	} else if (key == GLUT_KEY_DOWN) {
 		translacaoY -= 0.01;
 		glutPostRedisplay();
-	}
-	else if (key == GLUT_KEY_PAGE_UP) {
+	} else if (key == GLUT_KEY_PAGE_UP) {
 		lft = bottom -= 0.1;
 		rgt = top += 0.1;
 		glutPostRedisplay();
-	}
-	else if (key == GLUT_KEY_PAGE_DOWN) {
+	} else if (key == GLUT_KEY_PAGE_DOWN) {
 		lft = bottom += 0.1;
 		rgt = top -= 0.1;
 		glutPostRedisplay();
-	}
-	else if (key == GLUT_KEY_F5) {
+	} else if (key == GLUT_KEY_F5) {
 		panX += 0.1;
 		glutPostRedisplay();
-	}
-	else if (key == GLUT_KEY_F6) {
+	} else if (key == GLUT_KEY_F6) {
 		panX -= 0.1;
 		glutPostRedisplay();
-	}
-	else if (key == GLUT_KEY_F7) {
+	} else if (key == GLUT_KEY_F7) {
 		panY += 0.1;
 		glutPostRedisplay();
-	}
-	else if (key == GLUT_KEY_F8) {
+	} else if (key == GLUT_KEY_F8) {
 		panY -= 0.1;
 		glutPostRedisplay();
 	}
