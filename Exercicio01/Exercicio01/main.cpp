@@ -4,7 +4,7 @@
 
 using namespace std;
 
-float translacaoX, translacaoY, panX, panY, lft, rgt, bottom, top;
+GLfloat translacaoX, translacaoY, panX, panY, lft, rgt, bottom, top;
 
 /**
 *	Desenha os eixos x e y
@@ -22,34 +22,47 @@ void drawAxis() {
 }
 
 /**
+ *	Desenha um quadrado dado o comprimento da aresta
+ */
+void drawSquare(float edge_length) {
+	float half_edge = edge_length / 2.0;
+	glBegin(GL_LINES);
+	glVertex3f(-half_edge, -half_edge, 0);
+	glVertex3f(-half_edge, half_edge, 0);
+	glVertex3f(half_edge, -half_edge, 0);
+	glVertex3f(half_edge, half_edge, 0);
+	glVertex3f(-half_edge, half_edge, 0);
+	glVertex3f(half_edge, half_edge, 0);
+	glVertex3f(-half_edge, -half_edge, 0);
+	glVertex3f(half_edge, -half_edge, 0);
+	glEnd();
+}
+
+/**
+ *	Desenha um triângulo dado sua altura e comprimento da base
+ */
+void drawTriangle(float base_length, float height) {
+	float half_base = base_length / 2.0;
+	glBegin(GL_TRIANGLES);
+	glColor3f(0.0, 0.0, 1.0);
+	glVertex2f(-half_base, half_base);
+	glColor3f(1.0, 0.0, 0.0);
+	glVertex2f(0.0, height);
+	glColor3f(0.0, 0.0, 1.0);
+	glVertex2f(half_base, half_base);
+	glEnd();
+}
+
+/**
 *	Desenha uma casa na window
 */
-void drawHouse() {
+void drawHouse(float edge_length, float roof_height) {
 	// Define a cor de desenho para azul
 	glColor3f(0, 0, 1);   // R, G, B
 	glLineWidth(3);
 
-	// Desenha um quadrado no centro da janela
-	glBegin(GL_LINES);
-	glVertex3f(-0.3, -0.3, 0);
-	glVertex3f(-0.3, 0.3, 0);
-	glVertex3f(0.3, -0.3, 0);
-	glVertex3f(0.3, 0.3, 0);
-	glVertex3f(-0.3, 0.3, 0);
-	glVertex3f(0.3, 0.3, 0);
-	glVertex3f(-0.3, -0.3, 0);
-	glVertex3f(0.3, -0.3, 0);
-	glEnd();
-
-	// Desenha um triângulo em cima do quadrado
-	glBegin(GL_TRIANGLES);
-	glColor3f(0.0, 0.0, 1.0);
-	glVertex2f(-0.3, 0.3);
-	glColor3f(1.0, 0.0, 0.0);
-	glVertex2f(0.0, 0.44);
-	glColor3f(0.0, 0.0, 1.0);
-	glVertex2f(0.3, 0.3);
-	glEnd();
+	drawSquare(edge_length); // Desenha um quadrado no centro da janela
+	drawTriangle(edge_length, roof_height);	// Desenha um triângulo em cima do quadrado
 }
 
 /**
@@ -71,7 +84,7 @@ void display(void) {
 	glPopMatrix();
 	glLoadIdentity();	// Limpa a pilha de matriz de transformação
 	glTranslatef(translacaoX, translacaoY, 0);    // Todas as transformações são acumuladas no OpenGL
-	drawHouse();
+	drawHouse(0.6, 0.44);
 
 	glFlush();	// Executa os comandos OpenGL
 }
@@ -100,11 +113,11 @@ void handleSpecialKeys(int key, int x, int y) {
 	} else if (key == GLUT_KEY_DOWN) {
 		translacaoY -= 0.01;
 		glutPostRedisplay();
-	} else if (key == GLUT_KEY_PAGE_UP) {
+	} else if (key == GLUT_KEY_PAGE_DOWN) {
 		lft = bottom -= 0.1;
 		rgt = top += 0.1;
 		glutPostRedisplay();
-	} else if (key == GLUT_KEY_PAGE_DOWN) {
+	} else if (key == GLUT_KEY_PAGE_UP) {
 		lft = bottom += 0.1;
 		rgt = top -= 0.1;
 		glutPostRedisplay();
@@ -127,11 +140,12 @@ void handleSpecialKeys(int key, int x, int y) {
 *	Função responsável por inicializar parâmetros e variáveis
 */
 void initialize(void) {
-	// Define a janela de visualização 2D
-	glMatrixMode(GL_PROJECTION);
 	translacaoX = translacaoY = panX = panY = 0;
 	lft = bottom = -1;
 	rgt = top = 1;
+	
+	// Define a janela de visualização 2D
+	glMatrixMode(GL_PROJECTION);
 	gluOrtho2D(-1.0, 1.0, -1.0, 1.0);
 	glMatrixMode(GL_MODELVIEW);
 }
