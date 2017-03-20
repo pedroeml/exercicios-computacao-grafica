@@ -14,10 +14,10 @@ void drawAxis() {
 	glLineWidth(1);
 
 	glBegin(GL_LINES);
-	glVertex2f(lft, 0.0);
-	glVertex2f(rgt, 0.0);
-	glVertex2f(0.0, bottom);
-	glVertex2f(0.0, top);
+	glVertex2f(lft + panX, 0.0);
+	glVertex2f(rgt + panX, 0.0);
+	glVertex2f(0.0, bottom + panY);
+	glVertex2f(0.0, top + panY);
 	glEnd();
 }
 
