@@ -1,2 +1,9 @@
 *.~*
 opengl/
+*.sdf
+*.sln
+*.opensdf
+*.v12.suo
+*.dll
+*.vcxproj
+*.vcxproj.filters
